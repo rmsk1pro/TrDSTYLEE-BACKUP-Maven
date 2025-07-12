@@ -1,0 +1,125 @@
+# ==============================
+# 🎯 CONFIGURAÇÕES GERAIS DO BACKUP
+# ==============================
+
+# ⏰ Horários programados para o backup automático.
+# Exemplos de formatos aceitos:
+#- "06:00"   ## 6 da manhã
+#- "12:00"   ## meio-dia
+#- "18:00"   ## 6 da tarde
+#- "20:15"   ## 8:10 da noite
+#- "23:50"   ## 11:50 da noite
+#
+
+backupSchedule:
+  enabled: true
+  everyDay: true
+  times:
+    - "06:00"   ## 6 da manhã
+    - "12:00"   ## meio-dia
+    - "18:00"   ## 6 da tarde
+    - "20:15"   ## 8:10 da noite
+    - "23:50"   ## 11:50 da noite
+  timezone: "America/Sao_Paulo"
+
+# 🗂️ Máximo de backups guardados antes de apagar os mais antigos automaticamente.
+maxBackupsBeforeErase: 20
+
+# 📦 Nível de compressão ZIP (1 = mais rápido, 10 = mais compacto).
+compressionLevel: 3
+
+# 🐢 Reduz a velocidade do backup se o servidor estiver com lag.
+slowdownWhenServerLags: true
+
+# 📢 Exibe mensagem no console quando o backup for desacelerado.
+showSlowdownMessage: true
+
+# 🐞 Ativa o modo debug (detalhes completos no console).
+debug: false
+
+# ⏳ Delay entre a compressão de arquivos (em milissegundos).
+backupDelayBetweenFiles: 100
+
+# 📛 Nome padrão do arquivo de backup. Use %time% para data/hora.
+name: "backup_%time%"
+
+# 🗃️ Extensão dos arquivos gerados.
+extension: "zip"
+
+# 🚫 Pastas/arquivos ignorados no backup (cache, temporários etc.).
+exemptFolders:
+  - "cache"
+  - "temp"
+  - "##BACKUP"
+
+# 💾 Pasta onde os backups serão salvos (relativa ou absoluta).
+saveFolder: "##BACKUP"
+
+# 🗄️ Pasta master para configurações especiais (opcional).
+masterFolder: ""
+
+# 🎮 Permite executar comandos de backup dentro do jogo.
+allowInGameCommands: true
+
+# 🔔 Notifica admins sobre o status dos backups.
+notifyAdmins: true
+
+# ==============================
+# 🚀 CONFIGURAÇÕES FTP / SFTP
+# ==============================
+
+# Configuração para envio automático dos backups via FTP ou SFTP:
+#
+# enable: ativa ou desativa o envio automático.
+# hostname: endereço do servidor FTP/SFTP.
+# port: porta do servidor (22 para SFTP, 21 para FTP).
+# protocol: "ftp" ou "sftp".
+# username: usuário para autenticação.
+# password: senha do usuário.
+# remoteFolder: pasta remota para salvar os backups.
+# deleteAfterSuccess: apaga o backup local após envio com sucesso.
+# maxBackupsBeforeErase: quantidade máxima de backups no servidor remoto.
+ftp:
+  enable: false
+  hostname: "localhost"
+  port: 22
+  protocol: "sftp"
+  username: "root"
+  password: "senha"
+  remoteFolder: "BACKUP"
+  deleteAfterSuccess: false
+  maxBackupsBeforeErase: 20
+  timeout: 10000  # Tempo limite de conexão SFTP em milissegundos (ex: 10000 = 10s)
+
+# ==============================
+# 🐬 CONFIGURAÇÕES MySQL
+# ==============================
+
+# Configuração para backup do banco de dados MySQL:
+#
+# enable: ativa ou desativa o backup do MySQL.
+#
+# ➡️ ⚠️ **IMPORTANTE – Método para backup:**
+#   - 🐧 "mysqldump": usa o executável mysqldump (RECOMENDADO para Linux).
+#   - 🔗 "jdbc": conecta via JDBC e gera backup internamente (funciona em qualquer sistema).
+#     ✅ Em Painel Pterodactyl, usar "jdbc" e configurar o banco com IP público da máquina.
+#
+# isLinux: defina true se o servidor for Linux (ajusta caminho do mysqldump).
+# mysqldumpLinuxPath: caminho do mysqldump no Linux.
+# mysqldumpWindowsPath: caminho do mysqldump no Windows.
+# host: IP ou hostname do servidor MySQL.
+# port: porta do MySQL (padrão: 3306).
+# username: usuário do banco.
+# password: senha do usuário.
+# database: nome do banco de dados a ser feito backup.
+mysql:
+  enable: false
+  method: "mysqldump"
+  isLinux: true
+  mysqldumpLinuxPath: "/usr/bin/mysqldump"
+  mysqldumpWindowsPath: "C:\\xampp\\mysql\\bin\\mysqldump.exe"
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: ""
+  database: "minecraft"
